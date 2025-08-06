@@ -1,12 +1,11 @@
+// vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   
-  // Resolve aliases for cleaner imports
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './'),
@@ -17,7 +16,6 @@ export default defineConfig({
     },
   },
 
-  // Development server configuration
   server: {
     port: 3000,
     host: true,
@@ -25,7 +23,6 @@ export default defineConfig({
     open: true,
   },
 
-  // Build configuration
   build: {
     outDir: 'dist',
     sourcemap: true,
@@ -49,12 +46,10 @@ export default defineConfig({
     },
   },
 
-  // CSS configuration
   css: {
     postcss: './postcss.config.js',
   },
 
-  // Optimization
   optimizeDeps: {
     include: [
       'react',
@@ -65,15 +60,11 @@ export default defineConfig({
     ],
   },
 
-  // Preview configuration
   preview: {
     port: 4173,
     host: true,
   },
 
-  // Base URL configuration
   base: '/',
-
-  // Public directory
   publicDir: 'public',
 });
