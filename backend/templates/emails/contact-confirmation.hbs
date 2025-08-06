@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Contacting VespaVerse</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background-color: #0a0b1e;
+            color: #ffffff;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1a1b2e 0%, #16213e 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 16px;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .greeting {
+            font-size: 18px;
+            margin-bottom: 24px;
+            color: #ffffff;
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #6366f1;
+            padding: 20px;
+            margin: 24px 0;
+            border-radius: 8px;
+        }
+        
+        .contact-info {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+        
+        .contact-info h3 {
+            color: #6366f1;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .info-label {
+            color: #a1a1aa;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #ffffff;
+        }
+        
+        .next-steps {
+            background: linear-gradient(135deg, #ec4899 0%, #6366f1 100%);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        
+        .next-steps h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .timeline-item {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-weight: bold;
+        }
+        
+        .timeline-text {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .cta {
+            text-align: center;
+            margin: 32px 0;
+        }
+        
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .social-links {
+            text-align: center;
+            margin: 32px 0;
+        }
+        
+        .social-link {
+            display: inline-block;
+            margin: 0 8px;
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 24px 30px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer p {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-bottom: 8px;
+        }
+        
+        .footer a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .header, .content {
+                padding: 24px 20px;
+            }
+            
+            .timeline {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">V</div>
+            <h1>Thank You!</h1>
+            <p>We've received your message and will respond soon</p>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hi {{firstName}},
+            </div>
+            
+            <p>Thank you for reaching out to VespaVerse! We're excited to learn about your project and explore how we can help bring your vision to life.</p>
+            
+            <div class="contact-info">
+                <h3>Your Contact Details</h3>
+                <div class="info-row">
+                    <span class="info-label">Reference ID:</span>
+                    <span class="info-value">#{{contactId}}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Submitted:</span>
+                    <span class="info-value">{{formatDate createdAt}}</span>
+                </div>
+                {{#if service}}
+                <div class="info-row">
+                    <span class="info-label">Service Interest:</span>
+                    <span class="info-value">{{service}}</span>
+                </div>
+                {{/if}}
+                {{#if budget}}
+                <div class="info-row">
+                    <span class="info-label">Budget Range:</span>
+                    <span class="info-value">{{budget}}</span>
+                </div>
+                {{/if}}
+            </div>
+            
+            <div class="next-steps">
+                <h3>What Happens Next?</h3>
+                <p>Our team will review your requirements and get back to you with a personalized response.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">1</div>
+                        <div class="timeline-text">Review<br>0-2 hours</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">2</div>
+                        <div class="timeline-text">Response<br>Within 24h</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">3</div>
+                        <div class="timeline-text">Consultation<br>Within 48h</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="message">
+                <p><strong>Your Message:</strong></p>
+                <p style="margin-top: 12px; font-style: italic;">"{{message}}"</p>
+            </div>
+            
+            <p>In the meantime, feel free to explore our recent projects and client success stories:</p>
+            
+            <div class="cta">
+                <a href="{{baseUrl}}/projects" class="button">View Our Work</a>
+            </div>
+            
+            <p>If you have any urgent questions, don't hesitate to call us at <strong>+1 (555) 123-4567</strong> or email us directly at <strong>hello@vespaverse.com</strong>.</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">GitHub</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {{currentYear}} VespaVerse. All rights reserved.</p>
+            <p>
+                <a href="{{baseUrl}}/privacy">Privacy Policy</a> | 
+                <a href="{{baseUrl}}/terms">Terms of Service</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

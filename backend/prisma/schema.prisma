@@ -1,0 +1,295 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  password          String
+  firstName         String?
+  lastName          String?
+  avatar            String?
+  role              UserRole  @default(USER)
+  isEmailVerified   Boolean   @default(false)
+  emailVerificationToken String?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+  lastLogin         DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Relations
+  projects          Project[]
+  testimonials      Testimonial[]
+  blogPosts         BlogPost[]
+  analytics         Analytics[]
+  contacts          Contact[]
+  
+  @@map("users")
+}
+
+model Project {
+  id              String        @id @default(cuid())
+  title           String
+  description     String
+  shortDescription String?
+  status          ProjectStatus @default(PLANNING)
+  category        String
+  tags            String[]
+  images          String[]
+  liveUrl         String?
+  githubUrl       String?
+  startDate       DateTime
+  endDate         DateTime?
+  budget          Float?
+  client          String?
+  clientEmail     String?
+  clientPhone     String?
+  clientCompany   String?
+  technologies    String[]
+  featured        Boolean       @default(false)
+  visibility      ProjectVisibility @default(PUBLIC)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  
+  // Relations
+  userId          String?
+  user            User?         @relation(fields: [userId], references: [id])
+  testimonials    Testimonial[]
+  analytics       Analytics[]
+  
+  @@map("projects")
+}
+
+model Contact {
+  id          String      @id @default(cuid())
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  company     String?
+  service     String?
+  budget      String?
+  timeline    String?
+  message     String
+  status      ContactStatus @default(NEW)
+  priority    ContactPriority @default(MEDIUM)
+  source      String?
+  assignedTo  String?
+  notes       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  
+  // Relations
+  userId      String?
+  user        User?       @relation(fields: [userId], references: [id])
+  
+  @@map("contacts")
+}
+
+model Newsletter {
+  id          String    @id @default(cuid())
+  email       String    @unique
+  firstName   String?
+  lastName    String?
+  status      SubscriptionStatus @default(ACTIVE)
+  source      String?
+  tags        String[]
+  preferences Json?
+  subscribedAt DateTime @default(now())
+  unsubscribedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("newsletter")
+}
+
+model Service {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String
+  shortDescription String?
+  icon        String?
+  price       Float?
+  priceType   PriceType @default(MONTHLY)
+  features    String[]
+  technologies String[]
+  category    String
+  popular     Boolean   @default(false)
+  active      Boolean   @default(true)
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("services")
+}
+
+model Testimonial {
+  id          String    @id @default(cuid())
+  name        String
+  email       String?
+  company     String?
+  position    String?
+  avatar      String?
+  content     String
+  rating      Int       @default(5)
+  featured    Boolean   @default(false)
+  approved    Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  userId      String?
+  user        User?     @relation(fields: [userId], references: [id])
+  projectId   String?
+  project     Project?  @relation(fields: [projectId], references: [id])
+  
+  @@map("testimonials")
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?
+  content     String
+  featuredImage String?
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  tags        String[]
+  category    String?
+  readTime    Int?
+  views       Int       @default(0)
+  likes       Int       @default(0)
+  seoTitle    String?
+  seoDescription String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relations
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  
+  @@map("blog_posts")
+}
+
+model Analytics {
+  id          String    @id @default(cuid())
+  event       String
+  properties  Json?
+  userId      String?
+  projectId   String?
+  sessionId   String?
+  ipAddress   String?
+  userAgent   String?
+  referer     String?
+  createdAt   DateTime  @default(now())
+  
+  // Relations
+  user        User?     @relation(fields: [userId], references: [id])
+  project     Project?  @relation(fields: [projectId], references: [id])
+  
+  @@map("analytics")
+}
+
+model FileUpload {
+  id          String    @id @default(cuid())
+  filename    String
+  originalName String
+  mimetype    String
+  size        Int
+  path        String
+  url         String
+  bucket      String?
+  key         String?
+  uploadedBy  String?
+  createdAt   DateTime  @default(now())
+  
+  @@map("file_uploads")
+}
+
+model Settings {
+  id          String    @id @default(cuid())
+  key         String    @unique
+  value       Json
+  description String?
+  category    String?
+  updatedAt   DateTime  @updatedAt
+  
+  @@map("settings")
+}
+
+model AuditLog {
+  id          String    @id @default(cuid())
+  action      String
+  entity      String
+  entityId    String?
+  oldValues   Json?
+  newValues   Json?
+  userId      String?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime  @default(now())
+  
+  @@map("audit_logs")
+}
+
+// Enums
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  REVIEW
+  COMPLETED
+  CANCELLED
+  ON_HOLD
+}
+
+enum ProjectVisibility {
+  PUBLIC
+  PRIVATE
+  INTERNAL
+}
+
+enum ContactStatus {
+  NEW
+  IN_PROGRESS
+  REPLIED
+  CLOSED
+  SPAM
+}
+
+enum ContactPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  UNSUBSCRIBED
+  BOUNCED
+  COMPLAINED
+}
+
+enum PriceType {
+  MONTHLY
+  YEARLY
+  ONE_TIME
+  CUSTOM
+}
